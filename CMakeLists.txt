@@ -21,6 +21,6 @@ link_directories(${SDL2_LIB_DIR})
 link_directories(${SDL2_LIB_DIR2})
 link_directories(${SDL2_LIB_DIR3})
 link_directories(${SDL2_LIB_DIR4})
-add_executable(Game main.cpp)
+add_executable(Game main.cpp Game.cpp Game.h)
 
 target_link_libraries(${PROJECT_NAME} SDL2main SDL2 SDL2_image SDL2_ttf SDL2_mixer)

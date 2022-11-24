@@ -1,42 +1,67 @@
 #include "Game.h"
+#include "Utilities/StaticObjects.h"
+#include "GameObjects/Player/Mario.h"
 
+Mario* mario;
 
 Game::Game() {}
 
 Game::~Game() {}
 
-void Game::init(const char *title, int xpos, int ypos, int w, int heigh, bool fullscreen) {
+void Game::init(const char *title, int w, int h, bool fullscreen) {
+
+    Track::HEIGHT = h;
+    Track::WIDTH = w;
+
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
-        window = SDL_CreateWindow(title, xpos, ypos, w, heigh, fullscreen);
-        renderer = SDL_CreateRenderer(window, -1, 0);
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+        window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, fullscreen);
+        StaticObjects::renderer = SDL_CreateRenderer(window, -1, 0);
+        SDL_SetRenderDrawColor(StaticObjects::renderer, 255, 255, 255, 255);
         isRunning = true;
     } else isRunning = false;
+
+    mario = new Mario(500,400);
 }
 
 void Game::HandleEvents() {
     SDL_Event event;
     SDL_PollEvent(&event);
-    switch (event.type) {
-        case SDL_QUIT:
-            isRunning = false;
-            break;
-        default:
-            break;
+    if (event.type == SDL_QUIT) {
+        isRunning = false;
+    }
+    else if (event.type == SDL_KEYDOWN && event.key.repeat == 0) {
+        switch (event.key.keysym.sym) {
+            case SDLK_DOWN: mario->yVel =8; mario->move=0; break;
+            case SDLK_LEFT: mario->xVel = -8; mario->move=1; break;
+            case SDLK_RIGHT:mario->xVel = 8; mario->move=2; break;
+            case SDLK_UP:   mario->yVel=-8; mario->move=3; break;
+            default:break;
+        }
+    }
+    else if (event.type == SDL_KEYUP && event.key.repeat == 0) {
+        switch (event.key.keysym.sym) {
+            case SDLK_RIGHT:mario->xVel = 0;break;
+            case SDLK_LEFT: mario->xVel = 0;break;
+            case SDLK_UP:   mario->yVel= 0;break;
+            case SDLK_DOWN: mario->yVel = 0;break;
+            default:break;
+        }
     }
 }
 
-void Game::Update() {}
+void Game::Update() {
+    mario->Update();
+    mario->Move();
+}
 
 void Game::Render() {
-    SDL_RenderClear(renderer);
-    SDL_RenderPresent(renderer);
+    SDL_RenderClear(StaticObjects::renderer);
+    mario->Render();
+    SDL_RenderPresent(StaticObjects::renderer);
 }
 
 void Game::Clean() {
     SDL_DestroyWindow(window);
-    SDL_DestroyRenderer(renderer);
+    SDL_DestroyRenderer(StaticObjects::renderer);
     SDL_Quit();
 }
-
-

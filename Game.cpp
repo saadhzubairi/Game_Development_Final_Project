@@ -31,10 +31,10 @@ void Game::HandleEvents() {
     }
     else if (event.type == SDL_KEYDOWN && event.key.repeat == 0) {
         switch (event.key.keysym.sym) {
-            case SDLK_DOWN: mario->yVel =8; mario->move=0; break;
-            case SDLK_LEFT: mario->xVel = -8; mario->move=1; break;
-            case SDLK_RIGHT:mario->xVel = 8; mario->move=2; break;
-            case SDLK_UP:   mario->yVel=-8; mario->move=3; break;
+            case SDLK_DOWN: mario->yVel     = 5; mario->move=0; break;
+            case SDLK_LEFT: mario->xVel     =-5; mario->move=1; break;
+            case SDLK_RIGHT:mario->xVel     = 5; mario->move=2; break;
+            case SDLK_UP:   mario->yVel     =-5; mario->move=3; break;
             default:break;
         }
     }

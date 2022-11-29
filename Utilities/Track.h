@@ -12,7 +12,7 @@ public:
     static int HEIGHT;
     static int WIDTH;
     static int SPRITE;
-
+    static int PLAYER_SPEED;
 };
 
 

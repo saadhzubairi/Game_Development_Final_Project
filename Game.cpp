@@ -1,7 +1,9 @@
 #include "Game.h"
 #include "Utilities/StaticObjects.h"
 #include "GameObjects/Player/Mario.h"
+#include "Utilities/Field.h"
 
+Field* field;
 Mario* mario;
 
 Game::Game() {}
@@ -20,6 +22,7 @@ void Game::init(const char *title, int w, int h, bool fullscreen) {
         isRunning = true;
     } else isRunning = false;
 
+    field = new Field();
     mario = new Mario(500,400);
 }
 
@@ -31,10 +34,10 @@ void Game::HandleEvents() {
     }
     else if (event.type == SDL_KEYDOWN && event.key.repeat == 0) {
         switch (event.key.keysym.sym) {
-            case SDLK_DOWN: mario->yVel     = 5; mario->move=0; break;
-            case SDLK_LEFT: mario->xVel     =-5; mario->move=1; break;
-            case SDLK_RIGHT:mario->xVel     = 5; mario->move=2; break;
-            case SDLK_UP:   mario->yVel     =-5; mario->move=3; break;
+            case SDLK_DOWN: mario->yVel = Track::PLAYER_SPEED; mario->move=0; break;
+            case SDLK_LEFT: mario->xVel =-Track::PLAYER_SPEED; mario->move=1; break;
+            case SDLK_RIGHT:mario->xVel = Track::PLAYER_SPEED; mario->move=2; break;
+            case SDLK_UP:   mario->yVel =-Track::PLAYER_SPEED; mario->move=3; break;
             default:break;
         }
     }
@@ -42,7 +45,7 @@ void Game::HandleEvents() {
         switch (event.key.keysym.sym) {
             case SDLK_RIGHT:mario->xVel = 0;break;
             case SDLK_LEFT: mario->xVel = 0;break;
-            case SDLK_UP:   mario->yVel= 0;break;
+            case SDLK_UP:   mario->yVel = 0;break;
             case SDLK_DOWN: mario->yVel = 0;break;
             default:break;
         }
@@ -56,6 +59,7 @@ void Game::Update() {
 
 void Game::Render() {
     SDL_RenderClear(StaticObjects::renderer);
+    field->drawMap();
     mario->Render();
     SDL_RenderPresent(StaticObjects::renderer);
 }

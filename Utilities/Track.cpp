@@ -8,3 +8,4 @@ int Track::FRAME = 0;
 int Track::HEIGHT = 0;
 int Track::WIDTH = 0;
 int Track::SPRITE = 0;
+int Track::PLAYER_SPEED = 8;

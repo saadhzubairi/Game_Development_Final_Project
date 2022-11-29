@@ -73,14 +73,6 @@ build CMakeFiles\Game.dir\Utilities\TextureManager.cpp.obj: CXX_COMPILER__Game_D
   TARGET_COMPILE_PDB = CMakeFiles\Game.dir\
   TARGET_PDB = Game.pdb
 
-build CMakeFiles\Game.dir\Utilities\StaticObjects.cpp.obj: CXX_COMPILER__Game_Debug C$:\Users\Saad$ Zubairi\CLionProjects\Game\Utilities\StaticObjects.cpp || cmake_object_order_depends_target_Game
-  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd
-  INCLUDES = -IC:\src\SDL\include -IC:\src\SDL2_image-2.6.2\include -IC:\src\SDL2_ttf-2.20.1\include -IC:\src\SDL2_mixer-2.6.2\include
-  OBJECT_DIR = CMakeFiles\Game.dir
-  OBJECT_FILE_DIR = CMakeFiles\Game.dir\Utilities
-  TARGET_COMPILE_PDB = CMakeFiles\Game.dir\
-  TARGET_PDB = Game.pdb
-
 build CMakeFiles\Game.dir\Utilities\Track.cpp.obj: CXX_COMPILER__Game_Debug C$:\Users\Saad$ Zubairi\CLionProjects\Game\Utilities\Track.cpp || cmake_object_order_depends_target_Game
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   INCLUDES = -IC:\src\SDL\include -IC:\src\SDL2_image-2.6.2\include -IC:\src\SDL2_ttf-2.20.1\include -IC:\src\SDL2_mixer-2.6.2\include
@@ -113,6 +105,14 @@ build CMakeFiles\Game.dir\Utilities\Field.cpp.obj: CXX_COMPILER__Game_Debug C$:\
   TARGET_COMPILE_PDB = CMakeFiles\Game.dir\
   TARGET_PDB = Game.pdb
 
+build CMakeFiles\Game.dir\Utilities\StaticObjects.cpp.obj: CXX_COMPILER__Game_Debug C$:\Users\Saad$ Zubairi\CLionProjects\Game\Utilities\StaticObjects.cpp || cmake_object_order_depends_target_Game
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd
+  INCLUDES = -IC:\src\SDL\include -IC:\src\SDL2_image-2.6.2\include -IC:\src\SDL2_ttf-2.20.1\include -IC:\src\SDL2_mixer-2.6.2\include
+  OBJECT_DIR = CMakeFiles\Game.dir
+  OBJECT_FILE_DIR = CMakeFiles\Game.dir\Utilities
+  TARGET_COMPILE_PDB = CMakeFiles\Game.dir\
+  TARGET_PDB = Game.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Game
@@ -121,7 +121,7 @@ build CMakeFiles\Game.dir\Utilities\Field.cpp.obj: CXX_COMPILER__Game_Debug C$:\
 #############################################
 # Link the executable Game.exe
 
-build Game.exe: CXX_EXECUTABLE_LINKER__Game_Debug CMakeFiles\Game.dir\main.cpp.obj CMakeFiles\Game.dir\Game.cpp.obj CMakeFiles\Game.dir\Utilities\TextureManager.cpp.obj CMakeFiles\Game.dir\Utilities\StaticObjects.cpp.obj CMakeFiles\Game.dir\Utilities\Track.cpp.obj CMakeFiles\Game.dir\GameObjects\GameObject.cpp.obj CMakeFiles\Game.dir\GameObjects\Player\Mario.cpp.obj CMakeFiles\Game.dir\Utilities\Field.cpp.obj
+build Game.exe: CXX_EXECUTABLE_LINKER__Game_Debug CMakeFiles\Game.dir\main.cpp.obj CMakeFiles\Game.dir\Game.cpp.obj CMakeFiles\Game.dir\Utilities\TextureManager.cpp.obj CMakeFiles\Game.dir\Utilities\Track.cpp.obj CMakeFiles\Game.dir\GameObjects\GameObject.cpp.obj CMakeFiles\Game.dir\GameObjects\Player\Mario.cpp.obj CMakeFiles\Game.dir\Utilities\Field.cpp.obj CMakeFiles\Game.dir\Utilities\StaticObjects.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   LINK_FLAGS = /machine:X86 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = SDL2main.lib  SDL2.lib  SDL2_image.lib  SDL2_ttf.lib  SDL2_mixer.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib

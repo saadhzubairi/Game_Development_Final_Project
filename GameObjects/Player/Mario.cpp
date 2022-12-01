@@ -1,9 +1,8 @@
 #include <cstdio>
 #include "Mario.h"
 
-Mario::Mario(int x, int y) :
-        GameObject("../Assets/Mario.png", x, y, 256, 256, 4, 4, 1.5) {
-    this->fric = 0.9;
+Mario::Mario(int x, int y) : GameObject("../Assets/Mario.png", x, y, 256, 256, 4, 4, 1) {
+    this->fric = 0;
 }
 
 Mario::~Mario() {}
@@ -13,7 +12,9 @@ void Mario::Move() {
     yPos += (int) tY;
     tX *= fric;
     tY *= fric;
-    if (xVel != 0 || yVel != 0) { GameObject::Translate(xVel, yVel); }
+    if (xVel != 0 || yVel != 0) {
+        GameObject::Translate(xVel, yVel);
+    }
 }
 
 void Mario::Render() {

@@ -7,7 +7,7 @@ public:
     Field();
     ~Field();
 
-    void loadMap(int arr[25][35]);
+    void loadMap(int arr[25][40]);
     void drawMap();
 
 private:

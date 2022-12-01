@@ -12,14 +12,12 @@ int main(int argc, char *argv[]) {
     Uint32 FrameStart;
     int FrameTime;
 
-
     game = new Game();
-    game->init("MY Game", 1000, 800, false);
+    game->init("MY Game", 1920, 1080, true);
 
     while (game->Running()) {
-
         Track::FRAME++;
-        if (!(Track::FRAME % 3)) Track::SPRITE++;
+        if (!(Track::FRAME % 1)) Track::SPRITE++;
 
         FrameStart = SDL_GetTicks();
 
@@ -29,9 +27,7 @@ int main(int argc, char *argv[]) {
 
         FrameTime = SDL_GetTicks() - FrameStart;
 
-        if (FrameDelay > FrameTime) {
-            SDL_Delay(FrameDelay - FrameTime);
-        }
+        if (FrameDelay > FrameTime) {SDL_Delay(FrameDelay - FrameTime);}
     }
 
     std::cout << "Hello, World!" << std::endl;

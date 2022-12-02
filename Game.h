@@ -6,6 +6,10 @@
 #include "SDL_ttf.h"
 #include "SDL_mixer.h"
 #include "SDL_image.h"
+#include "Utilities/StaticObjects.h"
+#include "GameObjects/Player/Mario.h"
+#include "GameObjects/GameObject.h"
+#include "Utilities/Field.h"
 
 class Game {
 public:
@@ -13,11 +17,11 @@ public:
     ~Game();
     void init(const char *title, int w, int h, bool fullscreen);
     void HandleEvents();
+    static vector<GameObject*> gameObjects;
     void Update();
     void Render();
     void Clean();
     bool Running() { return isRunning;};
-
 private:
     bool isRunning;
     SDL_Window *window;

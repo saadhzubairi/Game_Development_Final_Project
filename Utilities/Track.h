@@ -11,6 +11,7 @@ public:
     static int FRAME;
     static int HEIGHT;
     static int WIDTH;
+    static int SPRITEDELAY;
     static int SPRITE;
     static int PLAYER_SPEED;
 };

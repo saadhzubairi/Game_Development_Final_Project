@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
 
     while (game->Running()) {
         Track::FRAME++;
-        if (!(Track::FRAME % 1)) Track::SPRITE++;
+        if (!(Track::FRAME % Track::SPRITEDELAY)) Track::SPRITE++;
 
         FrameStart = SDL_GetTicks();
 

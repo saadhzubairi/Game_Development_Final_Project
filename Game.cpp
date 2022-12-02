@@ -1,8 +1,6 @@
 #include "Game.h"
-#include "Utilities/StaticObjects.h"
-#include "GameObjects/Player/Mario.h"
-#include "Utilities/Field.h"
 
+vector<GameObject*> Game::gameObjects;
 Field* field;
 Mario* mario;
 
@@ -23,7 +21,7 @@ void Game::init(const char *title, int w, int h, bool fullscreen) {
     } else isRunning = false;
 
     field = new Field();
-    mario = new Mario(500,400);
+    mario = new Mario(Track::WIDTH/2,Track::HEIGHT/2);
 }
 
 void Game::HandleEvents() {

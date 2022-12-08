@@ -21,6 +21,6 @@ link_directories(${SDL2_LIB_DIR})
 link_directories(${SDL2_LIB_DIR2})
 link_directories(${SDL2_LIB_DIR3})
 link_directories(${SDL2_LIB_DIR4})
-add_executable(Game main.cpp Game.cpp Game.h Utilities/TextureManager.cpp Utilities/TextureManager.h Utilities/Track.cpp Utilities/Track.h GameObjects/GameObject.cpp GameObjects/GameObject.h GameObjects/Player/Mario.cpp GameObjects/Player/Mario.h Utilities/Field.cpp Utilities/Field.h Utilities/StaticObjects.cpp Utilities/StaticObjects.h GameObjects/Map.cpp GameObjects/Map.h GameObjects/WallPiece.cpp GameObjects/WallPiece.h)
+add_executable(Game main.cpp Game.cpp Game.h Utilities/TextureManager.cpp Utilities/TextureManager.h Utilities/Track.cpp Utilities/Track.h GameObjects/GameObject.cpp GameObjects/GameObject.h GameObjects/Player/Mario.cpp GameObjects/Player/Mario.h Utilities/Field.cpp Utilities/Field.h Utilities/StaticObjects.cpp Utilities/StaticObjects.h GameObjects/Map.cpp GameObjects/Map.h GameObjects/ImmovableObjects/WallPiece.cpp GameObjects/ImmovableObjects/WallPiece.h StaticLists.cpp StaticLists.h)
 
 target_link_libraries(${PROJECT_NAME} SDL2main SDL2 SDL2_image SDL2_ttf SDL2_mixer)

@@ -29,7 +29,7 @@ int Terrain[25][40] =
          {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,},};
 
 Field::Field() {
-    grass = TextureManager::LoadTexture("../Assets/Terrain/Grass_alt.png");
+    grass = TextureManager::LoadTexture("../Assets/Terrain/Grass.png");
     grass_alt = TextureManager::LoadTexture("../Assets/Terrain/Grass_alt.png");
     grass_alt2 = TextureManager::LoadTexture("../Assets/Terrain/Grass_alt2.png");
     loadMap(Terrain);

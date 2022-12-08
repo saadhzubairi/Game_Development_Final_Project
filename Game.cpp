@@ -1,8 +1,9 @@
 #include "Game.h"
+#include "GameObjects/ImmovableObjects/WallPiece.h"
 
-vector<GameObject*> Game::gameObjects;
 Field* field;
 Mario* mario;
+WallPiece* wall;
 
 Game::Game() {}
 
@@ -22,6 +23,7 @@ void Game::init(const char *title, int w, int h, bool fullscreen) {
 
     field = new Field();
     mario = new Mario(Track::WIDTH/2,Track::HEIGHT/2);
+    wall = new WallPiece(300,300);
 }
 
 void Game::HandleEvents() {
@@ -53,12 +55,18 @@ void Game::HandleEvents() {
 void Game::Update() {
     mario->Update();
     mario->Move();
+
+
+        wall->Update();
+        wall->Move();
+
 }
 
 void Game::Render() {
     SDL_RenderClear(StaticObjects::renderer);
     field->drawMap();
     mario->Render();
+    wall->Render();
     SDL_RenderPresent(StaticObjects::renderer);
 }
 

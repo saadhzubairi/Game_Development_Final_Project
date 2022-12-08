@@ -17,7 +17,6 @@ public:
     ~Game();
     void init(const char *title, int w, int h, bool fullscreen);
     void HandleEvents();
-    static vector<GameObject*> gameObjects;
     void Update();
     void Render();
     void Clean();

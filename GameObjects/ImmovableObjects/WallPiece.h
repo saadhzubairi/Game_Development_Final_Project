@@ -1,13 +1,12 @@
 #ifndef GAME_WALLPIECE_H
 #define GAME_WALLPIECE_H
 
+#include "../GameObject.h"
 
-class WallPiece {
+class WallPiece : public GameObject{
 public:
-    WallPiece();
+    WallPiece(int x, int y);
     ~WallPiece();
-
-
 };
 
 

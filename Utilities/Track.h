@@ -5,7 +5,6 @@
 #ifndef GAME_TRACK_H
 #define GAME_TRACK_H
 
-
 class Track {
 public:
     static int FRAME;

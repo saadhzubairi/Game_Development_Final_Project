@@ -21,9 +21,12 @@ public:
     void Render();
     void Clean();
     bool Running() { return isRunning;};
+
+
 private:
     bool isRunning;
     SDL_Window *window;
+
 };
 
 #endif //GAME_GAME_H

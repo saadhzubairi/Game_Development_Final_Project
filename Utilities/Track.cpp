@@ -9,4 +9,4 @@ int Track::HEIGHT = 0;
 int Track::WIDTH = 0;
 int Track::SPRITE = 0;
 int Track::SPRITEDELAY = 5;
-int Track::PLAYER_SPEED = 5;
+int Track::PLAYER_SPEED = 2;

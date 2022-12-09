@@ -13,9 +13,9 @@ int main(int argc, char *argv[]) {
     int FrameTime;
 
     game = new Game();
-    game->init("My Game", 1920, 1080, true);
+    game->init("My Game", 1000, 700, false);
 
-    while (game->Running()) {
+    while (game->Running()){
         Track::FRAME++;
         if (!(Track::FRAME % Track::SPRITEDELAY)) Track::SPRITE++;
 
@@ -29,7 +29,5 @@ int main(int argc, char *argv[]) {
 
         if (FrameDelay > FrameTime) {SDL_Delay(FrameDelay - FrameTime);}
     }
-
-    std::cout << "Hello, World!" << std::endl;
     return 0;
 }

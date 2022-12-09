@@ -5,8 +5,7 @@
 
 class StaticLists {
 public:
-    vector<GameObject> gameObjectsList;
+    static vector<GameObject*> gameObjectsList;
 };
-
 
 #endif //GAME_STATICLISTS_H

@@ -2,6 +2,9 @@
 #include "StaticLists.h"
 #include "Map.h"
 #include "UIElementsForGame/UIButtons.h"
+#include "GameObjects/ImmovableObjects/Button.h"
+#include "GameObjects/ImmovableObjects/Door.h"
+#include "Assets/Movable/Yarn.h"
 
 Field *field;
 Map *map;
@@ -27,7 +30,13 @@ void Game::init(const char *title, int w, int h, bool fullscreen) {
 
     field = new Field();
     map = new Map();
-    exitButton = new UIButtons("Exit", Track::WIDTH/2, Track::HEIGHT/2, 20);
+
+    StaticLists::uiLabelsList.push_back(new UILabel("Evil Cats Killed: ", 170, 20, 20));
+    StaticLists::uiLabelsList.push_back(new UILabel("0", 330, 20, 20));
+    StaticLists::uiLabelsList.push_back(new UILabel("Level: ", 500, 20, 20));
+    StaticLists::uiLabelsList.push_back(new UILabel("0", 600, 20, 20));
+
+    exitButton = new UIButtons("Exit", Track::WIDTH - 100, Track::HEIGHT - 100, 20);
     mario = new Mario(24, 120);
 }
 
@@ -44,6 +53,7 @@ void Game::HandleEvents() {
             case    SDLK_RIGHT:     mario->xVel = Track::PLAYER_SPEED;  mario->move = 2;     break;
             case    SDLK_UP:        mario->yVel = -Track::PLAYER_SPEED; mario->move = 3;     break;
             case    SDLK_q:         Track::EXIT = 1;                                         break;
+            case    SDLK_SPACE:     StaticLists::shotsList.push_back(new Yarn(mario->xPos,mario->yPos,mario->move));
             default:                                                                        break;}}
     else if (StaticObjects::event.type == SDL_KEYUP && StaticObjects::event.key.repeat == 0) {
         switch (StaticObjects::event.key.keysym.sym) {
@@ -66,10 +76,16 @@ void Game::HandleEvents() {
         exitButton->HandleHoverEffects(x,y);
     }
 
-    if ( map->map[tileX+1][tileY] == 1 ) { mario->yVel=0.1;mario->Translate( 0,-1); }
-    if ( map->map[tileX][tileY-1] == 1 ) { mario->xVel=0.1;mario->Translate( 1, 0); }
-    if ( map->map[tileX][tileY+1] == 1 ) { mario->xVel=0.1;mario->Translate(-1, 0); }
-    if ( map->map[tileX-1][tileY] == 1 ) { mario->yVel=0.1;mario->Translate( 0, 1); }
+    if ( map->map[tileX+1][tileY] == 1 || map->map[tileX+1][tileY] == 2 ) { mario->yVel=0.1;mario->Translate( 0,-1); }
+    if ( map->map[tileX][tileY-1] == 1 || map->map[tileX][tileY-1] == 2 ) { mario->xVel=0.1;mario->Translate( 1, 0); }
+    if ( map->map[tileX][tileY+1] == 1 || map->map[tileX][tileY+1] == 2 ) { mario->xVel=0.1;mario->Translate(-1, 0); }
+    if ( map->map[tileX-1][tileY] == 1 || map->map[tileX-1][tileY] == 2 ) { mario->yVel=0.1;mario->Translate( 0, 1); }
+
+    for (GameObject* go: StaticLists::gameObjectsList ) {
+        if(CheckCollisions(go,mario)){
+
+        }
+    }
 }
 
 void Game::Update() {
@@ -77,19 +93,31 @@ void Game::Update() {
         gameObject->Update();
         gameObject->Move();
     }
+    for (GameObject* gameObject: StaticLists::shotsList) {
+        gameObject->Update();
+        gameObject->Move();
+    }
     mario->Update();
     mario->Move();
+
+    StaticLists::uiLabelsList.at(1)->SetText(to_string(Track::EVILCATKILL));
 
 }
 
 void Game::Render() {
     SDL_RenderClear(StaticObjects::renderer);
     field->drawMap();
-    mario->Render();
-    exitButton->Render();
+    for (GameObject* gameObject: StaticLists::shotsList) {
+        gameObject->Render();
+    }
     for (GameObject* gameObject: StaticLists::gameObjectsList) {
         gameObject->Render();
     }
+    for (UILabel* uiLabel: StaticLists::uiLabelsList) {
+        uiLabel->Render();
+    }
+    mario->Render();
+    exitButton->Render();
     SDL_RenderPresent(StaticObjects::renderer);
 
 }
@@ -99,4 +127,67 @@ void Game::Clean() {
     SDL_DestroyRenderer(StaticObjects::renderer);
     SDL_Quit();
 }
+
+void Game::CheckDoorButtons() {
+    for (GameObject* gameObject: StaticLists::gameObjectsList) {
+        if(gameObject->type==3){
+            if(CheckCollisions(mario,gameObject)){
+                int key = ((Button*) gameObject)->k;
+                exitButton->SetText(to_string(key));
+                //now look for the door
+                for (GameObject* doorFound: StaticLists::gameObjectsList) {
+                    if(doorFound->type==2){
+                        if(((Door*)doorFound)->k == key){
+                            ((Door*)doorFound)->OpenDoor();
+                            int x = doorFound->xPos/24;
+                            int y = doorFound->yPos/24;
+                            map->map[y][x] = 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    for (GameObject* yarn: StaticLists::shotsList) {
+        for (GameObject* animal: StaticLists::gameObjectsList) {
+            if(animal->type == 8){
+                if(CheckCollisions(animal,yarn)){
+                    animal->alive = false;
+                    yarn->alive = false;
+                    Track::EVILCATKILL++;
+                }
+            }
+        }
+    }
+
+}
+
+
+
+bool Game::CheckCollisions(GameObject *GO1, GameObject *GO2) {
+    if ((GO1->xMin >= GO2->xMin && GO1->xMin <= GO2->xMax) || (GO2->xMin >= GO1->xMin && GO2->xMin <= GO1->xMax)) {
+        if ((GO1->yMin >= GO2->yMin && GO1->yMin <= GO2->yMax) || (GO2->yMin >= GO1->yMin && GO2->yMin <= GO1->yMax)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void Game::KillDead() {
+
+    for (int i = 0; i < StaticLists::shotsList.size(); ++i) {
+        if(!StaticLists::shotsList.at(i)->isAlive())
+            StaticLists::shotsList.erase(StaticLists::shotsList.begin() + i);
+    }
+
+    for (int i = 0; i < StaticLists::gameObjectsList.size(); ++i) {
+        if(!StaticLists::gameObjectsList.at(i)->isAlive())
+            StaticLists::gameObjectsList.erase(StaticLists::gameObjectsList.begin() + i);
+    }
+}
+
+
+
+
 

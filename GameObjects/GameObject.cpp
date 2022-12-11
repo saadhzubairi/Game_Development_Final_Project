@@ -1,6 +1,6 @@
 #include "GameObject.h"
 
-GameObject::GameObject(const char *textureSheet, int x, int y, int sheetSizeX, int sheetSizeY, int rows, int cols, double zoom) {
+GameObject::GameObject(const char *textureSheet, int x, int y, int sheetSizeX, int sheetSizeY, int rows, int cols, double zoom, int type) {
     objTexture = TextureManager::LoadSprite(textureSheet, sheetSizeX, sheetSizeY, rows, cols, spriteSourceRects);
     xPos = x;
     yPos = y;
@@ -10,6 +10,7 @@ GameObject::GameObject(const char *textureSheet, int x, int y, int sheetSizeX, i
     this->NumOfSprites = rows * cols;
     this->ObjWidth = sheetSizeX / cols * zoom;
     this->ObjHeight = sheetSizeY / rows * zoom;
+    this->type = type;
 }
 
 GameObject::~GameObject() {}

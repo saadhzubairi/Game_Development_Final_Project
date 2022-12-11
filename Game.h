@@ -20,6 +20,9 @@ public:
     void Update();
     void Render();
     void Clean();
+    void CheckDoorButtons();
+    void KillDead();
+    static bool CheckCollisions(GameObject *GO1, GameObject *GO2);
     bool Running() { return isRunning;};
 
 private:

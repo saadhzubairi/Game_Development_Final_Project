@@ -11,3 +11,9 @@ int Track::SPRITE = 0;
 int Track::SPRITEDELAY = 5;
 int Track::PLAYER_SPEED = 2;
 int Track::EXIT = 0;
+
+int Track::EVILCATKILL = 0;
+
+
+int Track::BUTTON_K = 0;
+int Track::DOOR_K = 0;

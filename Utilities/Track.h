@@ -14,6 +14,13 @@ public:
     static int SPRITE;
     static int PLAYER_SPEED;
     static int EXIT;
+
+    static int EVILCATKILL;
+
+
+    static int BUTTON_K;
+    static int DOOR_K;
+
 };
 
 

@@ -9,7 +9,7 @@
 
 class GameObject {
 public:
-    GameObject(const char *textureSheet, int x, int y, int sheetSizeX, int sheetSizeY, int rows, int cols, double zoom);
+    GameObject(const char *textureSheet, int x, int y, int sheetSizeX, int sheetSizeY, int rows, int cols, double zoom, int type);
     ~GameObject();
 
     virtual void Render();
@@ -34,6 +34,8 @@ public:
     int NumOfSprites, ObjHeight, ObjWidth;
     int xMin, xMax;
     int yMin, yMax;
+
+    int type;
 };
 
 

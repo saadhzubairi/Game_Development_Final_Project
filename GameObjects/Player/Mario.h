@@ -14,6 +14,8 @@ public:
 
     void Render();
 
+    void Update();
+
     int xVel = 0;
     int yVel = 0;
     int move = 0;

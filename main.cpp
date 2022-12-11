@@ -26,7 +26,8 @@ int main(int argc, char *argv[]) {
         game->HandleEvents();
         game->Update();
         game->Render();
-
+        game->CheckDoorButtons();
+        game->KillDead();
         if(Track::EXIT == 1)
             break;
 

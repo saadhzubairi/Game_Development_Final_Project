@@ -10,3 +10,4 @@ int Track::WIDTH = 0;
 int Track::SPRITE = 0;
 int Track::SPRITEDELAY = 5;
 int Track::PLAYER_SPEED = 2;
+int Track::EXIT = 0;

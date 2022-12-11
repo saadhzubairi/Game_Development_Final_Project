@@ -13,6 +13,7 @@ public:
     static int SPRITEDELAY;
     static int SPRITE;
     static int PLAYER_SPEED;
+    static int EXIT;
 };
 
 

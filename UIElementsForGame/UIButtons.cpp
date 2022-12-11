@@ -1,6 +1,7 @@
 
 #include "UIButtons.h"
 
+
 UIButtons::UIButtons(const char *text, int x, int y, int font_size) : UILabel(text, x, y, font_size) {
     buttonText = TextureManager::LoadTexture("../Assets/button.png");
     srcR.x = 256;
@@ -20,7 +21,7 @@ void UIButtons::Render() {
     destR.y = textRect.y-10;
     destR.w = this->width + 60;
     destR.h = this->height + 20;
-    SDL_RenderCopy(Game::renderer, buttonText, &srcR, &destR);
+    SDL_RenderCopy(StaticObjects::renderer, buttonText, &srcR, &destR);
     UILabel::Render();
 }
 
@@ -35,7 +36,7 @@ bool UIButtons::HandleButtonClickEventsFromMouse(int x, int y) {
 
 void UIButtons::HandleHoverEffects(int x, int y) {
     if(x>destR.x && x<destR.x+destR.w){
-        if(y>destR.y && y<destR.y){
+        if(y>destR.y && y<destR.h){
             printf("on button!!!");
         }
     }

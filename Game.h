@@ -22,7 +22,6 @@ public:
     void Clean();
     bool Running() { return isRunning;};
 
-
 private:
     bool isRunning;
     SDL_Window *window;

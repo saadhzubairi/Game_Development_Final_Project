@@ -13,7 +13,9 @@ int main(int argc, char *argv[]) {
     int FrameTime;
 
     game = new Game();
-    game->init("My Game", 1000, 700, false);
+    game->init("My Game", 1920, 1080, true);
+
+    int exit = 0;
 
     while (game->Running()){
         Track::FRAME++;
@@ -25,9 +27,14 @@ int main(int argc, char *argv[]) {
         game->Update();
         game->Render();
 
+        if(Track::EXIT == 1)
+            break;
+
         FrameTime = SDL_GetTicks() - FrameStart;
 
         if (FrameDelay > FrameTime) {SDL_Delay(FrameDelay - FrameTime);}
     }
+
+    game->Clean();
     return 0;
 }

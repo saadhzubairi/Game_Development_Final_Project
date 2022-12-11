@@ -5,7 +5,7 @@
 #include "SDL_ttf.h"
 #include "../Game.h"
 #include <string>
-#include "../HelperClasses/TextureManager.h"
+#include "../Utilities/TextureManager.h"
 #include "UILabel.h"
 
 class UIButtons : public UILabel {

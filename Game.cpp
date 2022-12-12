@@ -275,6 +275,7 @@ void Game::KillDead() {
             GameObject *gameok = StaticLists::gameObjectsList.at(i);
             StaticLists::gameObjectsList.erase(StaticLists::gameObjectsList.begin() + i);
             delete gameok;
+
         }
 
     }

@@ -36,6 +36,8 @@ public:
     int yMin, yMax;
 
     int type;
+
+    virtual void TakeD() {}
 };
 
 

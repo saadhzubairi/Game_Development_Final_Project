@@ -6,7 +6,7 @@
 #define GAME_YARN_H
 
 
-#include "../../GameObjects/GameObject.h"
+#include "../GameObject.h"
 
 class Yarn : public GameObject{
 public:

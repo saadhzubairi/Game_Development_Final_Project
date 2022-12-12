@@ -24,7 +24,7 @@ Animal::Animal(int x, int y, int n) : GameObject("../Assets/Movable/animalone.pn
 }
 
 Animal::~Animal() {
-
+    printf("Cat Destroyed!");
 }
 
 void Animal::Move() {

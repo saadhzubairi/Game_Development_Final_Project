@@ -26,6 +26,8 @@ void Door::Move() {
 }
 
 void Door::OpenDoor() {
+    if(!open)Track::LEVEL++;
+    open = true;
     if (angle <= -90)
         openAni = false;
     else openAni = true;

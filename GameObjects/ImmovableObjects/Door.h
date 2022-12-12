@@ -22,6 +22,7 @@ public:
     int k;
     double angle = 0;
     bool openAni = false;
+    bool open = false;
 };
 
 

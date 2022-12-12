@@ -29,6 +29,8 @@ private:
     bool isRunning;
     SDL_Window *window;
 
+    static void startGame();
+
 };
 
 #endif //GAME_GAME_H

@@ -16,11 +16,16 @@ public:
     static int EXIT;
 
     static int EVILCATKILL;
-
+    static int PLAYERHEALTH;
+    static int LEVEL;
+    static int TIMEREM;
 
     static int BUTTON_K;
     static int DOOR_K;
 
+    static bool PLAYSTART;
+    static bool MENU_MAIN;
+    static bool MENU_WIN;
 };
 
 

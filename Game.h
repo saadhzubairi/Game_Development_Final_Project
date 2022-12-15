@@ -15,7 +15,7 @@ class Game {
 public:
     Game();
     ~Game();
-    void init(const char *title, int w, int h, bool fullscreen);
+    void init(const char *title);
     void HandleEvents();
     void Update();
     void Render();
@@ -24,7 +24,7 @@ public:
     void KillDead();
     static bool CheckCollisions(GameObject *GO1, GameObject *GO2);
     bool Running() { return isRunning;};
-
+    MusicController* musicController;
 private:
     bool isRunning;
     SDL_Window *window;

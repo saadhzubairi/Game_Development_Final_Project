@@ -1,15 +1,12 @@
-//
-// Created by Saad Zubairi on 11/25/2022.
-//
-
 #include "Track.h"
 
 int Track::FRAME = 0;
-int Track::HEIGHT = 0;
-int Track::WIDTH = 0;
+int Track::WIDTH = 1920;
+int Track::HEIGHT = 1080;
+bool Track::FULLSCREEN = true;
 int Track::SPRITE = 0;
 int Track::SPRITEDELAY = 5;
-int Track::PLAYER_SPEED = 10;
+int Track::PLAYER_SPEED = 3;
 int Track::EXIT = 0;
 
 int Track::EVILCATKILL = 0;
@@ -24,3 +21,4 @@ int Track::DOOR_K = 0;
 bool Track::PLAYSTART = false;
 bool Track::MENU_MAIN = true;
 bool Track::MENU_WIN = false;
+

@@ -7,6 +7,6 @@ Disperse::~Disperse() {}
 void Disperse::Render() {
     SDL_RenderCopy(StaticObjects::renderer, objTexture, &spriteSourceRects[cSprite], &destR);
     Life++;
-    if (Life % 6 == 0) cSprite++;
-    if (Life > 60) { alive = false; }
+    if (Life % 2 == 0) cSprite++;
+    if (Life > 20) { alive = false; }
 }

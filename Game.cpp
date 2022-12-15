@@ -21,18 +21,23 @@ Game::Game() {}
 
 Game::~Game() {}
 
-void Game::init(const char *title, int w, int h, bool fullscreen) {
-
-    Track::HEIGHT = h;
-    Track::WIDTH = w;
+void Game::init(const char *title) {
 
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
-        window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, fullscreen);
+        window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Track::WIDTH, Track::HEIGHT, Track::FULLSCREEN);
         StaticObjects::renderer = SDL_CreateRenderer(window, -1, 0);
         SDL_SetRenderDrawColor(StaticObjects::renderer, 255, 255, 255, 255);
         TTF_Init();
+        if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048)<0){
+            printf("mix error: %s\n",Mix_GetError());
+        };
         isRunning = true;
     } else isRunning = false;
+
+
+    musicController = new MusicController();
+    musicController->playBgMusic();
+
     exitButton = new UIButtons("Exit", Track::WIDTH - 100, Track::HEIGHT - 100, 20);
     StartButton = new UIButtons("START", Track::WIDTH / 2, Track::HEIGHT / 2, 40);
     field = new Field();
@@ -70,6 +75,8 @@ void Game::HandleEvents() {
                     break;
                 case SDLK_SPACE:
                     StaticLists::shotsList.push_back(new Yarn(mario->xPos, mario->yPos, mario->move));
+                    musicController->playShoot();
+                    break;
                 default:
                     break;
             }
@@ -157,7 +164,6 @@ void Game::Update() {
         StaticLists::uiLabelsList.at(3)->SetText(to_string(Track::LEVEL));
         StaticLists::uiLabelsList.at(5)->SetText(to_string(Track::PLAYERHEALTH));
         StaticLists::uiLabelsList.at(7)->SetText(to_string(Track::TIMEREM / 60));
-
         Track::TIMEREM--;
     }
 
@@ -207,7 +213,7 @@ void Game::CheckDoorButtons() {
                                 int x = doorFound->xPos / 24;
                                 int y = doorFound->yPos / 24;
                                 map->map[y][x] = 0;
-
+                                musicController->playDoorButton();
                             }
                         }
                     }
@@ -224,6 +230,7 @@ void Game::CheckDoorButtons() {
                         yarn->alive = false;
                         Track::EVILCATKILL++;
                         StaticLists::gameObjectsList.push_back(new Disperse(animal->xPos, animal->yPos));
+                        musicController->playCatNoise();
                     }
                 }
 
@@ -240,6 +247,8 @@ void Game::CheckDoorButtons() {
         for (GameObject *animal: StaticLists::gameObjectsList) {
             if (animal->type == 8) {
                 if (CheckCollisions(animal, mario)) {
+                    musicController->playCatLoose();
+                    musicController->playLifeGone();
                     animal->alive = false;
                     Track::PLAYERHEALTH--;
                     StaticLists::gameObjectsList.push_back(new Damage(mario->xPos, mario->yPos, mario->move));
@@ -275,9 +284,7 @@ void Game::KillDead() {
             GameObject *gameok = StaticLists::gameObjectsList.at(i);
             StaticLists::gameObjectsList.erase(StaticLists::gameObjectsList.begin() + i);
             delete gameok;
-
         }
-
     }
 }
 

@@ -26,6 +26,7 @@ public:
     static bool PLAYSTART;
     static bool MENU_MAIN;
     static bool MENU_WIN;
+    static bool FULLSCREEN;
 };
 
 

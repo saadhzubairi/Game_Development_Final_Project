@@ -7,6 +7,7 @@
 
 MusicController::MusicController() {
     this->BgMusic = Mix_LoadMUS("../Assets/music.mp3");
+    this->gameover = Mix_LoadWAV("../Assets/gameover.wav");
     this->catNoise = Mix_LoadWAV("../Assets/catnoise.wav");
     this->bigcatNoise = Mix_LoadWAV("../Assets/bigcat.wav");
     this->door = Mix_LoadWAV("../Assets/door.wav");
@@ -55,4 +56,8 @@ void MusicController::playLifeGone() {
 
 void MusicController::playShoot() {
     Mix_PlayChannel(-1, shoot, 0);
+}
+
+void MusicController::playGameOver() {
+    Mix_PlayChannel(-1, gameover, 0);
 }

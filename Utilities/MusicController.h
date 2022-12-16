@@ -9,6 +9,7 @@ public:
     ~MusicController();
 
     Mix_Music *BgMusic = NULL;
+    Mix_Chunk *gameover = NULL;
 
     Mix_Chunk *catNoise = NULL;
     Mix_Chunk *bigcatNoise = NULL;
@@ -22,13 +23,13 @@ public:
 
 
 
+    void playBgMusic();
+    void playGameOver();
     void playDoorButton();
     void playDoor();
     void playCatNoise();
     void playBigCatNoise();
-    void playBgMusic();
     void playBossLevel();
-
     void playCatLoose();
     void playLifeGone();
     void playShoot();

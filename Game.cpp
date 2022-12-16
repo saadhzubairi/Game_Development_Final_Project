@@ -172,12 +172,13 @@ void Game::Update() {
         Track::TIMEREM--;
     }
 
-
     if(Track::PLAYERHEALTH <= 0 || Track::TIMEREM <= 0){
         waiter_start = true;
     }
 
     if(waiter_start){
+        if(waiter==0)
+        musicController->playGameOver();
         waiter++;
         mario->xVel = 0;
         mario->yVel = 0;

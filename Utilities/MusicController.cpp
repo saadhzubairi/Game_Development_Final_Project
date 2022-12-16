@@ -8,6 +8,7 @@
 MusicController::MusicController() {
     this->BgMusic = Mix_LoadMUS("../Assets/music.mp3");
     this->catNoise = Mix_LoadWAV("../Assets/catnoise.wav");
+    this->bigcatNoise = Mix_LoadWAV("../Assets/bigcat.wav");
     this->door = Mix_LoadWAV("../Assets/door.wav");
     this->doorButton = Mix_LoadWAV("../Assets/doorbutton.wav");
     this->bossLevel = Mix_LoadWAV("../Assets/bossLevel.wav");
@@ -15,8 +16,6 @@ MusicController::MusicController() {
     this->catLoose = Mix_LoadWAV("../Assets/catbutloose.wav");
     this->lifeGone = Mix_LoadWAV("../Assets/lifegone.wav");
     this->shoot = Mix_LoadWAV("../Assets/shoot.wav");
-
-
 }
 
 MusicController::~MusicController() {}
@@ -28,6 +27,10 @@ void MusicController::playBgMusic() {
 
 void MusicController::playCatNoise() {
     Mix_PlayChannel(-1, catNoise, 0);
+}
+
+void MusicController::playBigCatNoise() {
+    Mix_PlayChannel(-1, bigcatNoise, 0);
 }
 
 void MusicController::playDoor() {

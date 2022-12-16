@@ -6,6 +6,7 @@
 #include "GameObjects/ImmovableObjects/Door.h"
 #include "GameObjects/MoveableObjects/Yarn.h"
 #include "GameObjects/MoveableObjects/Disperse.h"
+#include "GameObjects/MoveableObjects/DisperseBig.h"
 #include "GameObjects/MoveableObjects/Damage.h"
 #include "UIElementsForGame/Screen.h"
 
@@ -13,7 +14,12 @@ Field *field;
 Map *map;
 Mario *mario;
 UIButtons *exitButton;
+UIButtons *restartButton;
 UIButtons *StartButton;
+
+int Game::waiter = 0;
+bool Game::waiter_start = false;
+
 
 Screen *screen;
 
@@ -34,16 +40,14 @@ void Game::init(const char *title) {
         isRunning = true;
     } else isRunning = false;
 
-
     musicController = new MusicController();
     musicController->playBgMusic();
 
     exitButton = new UIButtons("Exit", Track::WIDTH - 100, Track::HEIGHT - 100, 20);
+    restartButton = new UIButtons("restart", Track::WIDTH - 300, Track::HEIGHT - 100, 20);
     StartButton = new UIButtons("START", Track::WIDTH / 2, Track::HEIGHT / 2, 40);
     field = new Field();
     screen = new Screen();
-
-
 }
 
 void Game::HandleEvents() {
@@ -124,9 +128,9 @@ void Game::HandleEvents() {
             mario->yVel = 0.1;
             mario->Translate(0, 1);
         }
-    } else if (Track::MENU_MAIN) {
+    }
+    else if (Track::MENU_MAIN) {
         if (StaticObjects::event.type == SDL_MOUSEBUTTONDOWN) {
-
             int x, y;
             SDL_GetMouseState(&x, &y);
             bool quit = exitButton->HandleButtonClickEventsFromMouse(x, y);
@@ -137,13 +141,14 @@ void Game::HandleEvents() {
                 Track::PLAYSTART = true;
                 startGame();
             }
+            bool restart = restartButton->HandleButtonClickEventsFromMouse(x, y);
+            if(restart) { startGame();
+                printf("pressed here");}
 
         } else if (StaticObjects::event.type == SDL_MOUSEMOTION) {
-
             int x, y;
             SDL_GetMouseState(&x, &y);
             exitButton->HandleHoverEffects(x, y);
-
         }
     }
 }
@@ -168,6 +173,23 @@ void Game::Update() {
     }
 
 
+    if(Track::PLAYERHEALTH <= 0 || Track::TIMEREM <= 0){
+        waiter_start = true;
+    }
+
+    if(waiter_start){
+        waiter++;
+        mario->xVel = 0;
+        mario->yVel = 0;
+        StaticLists::gameObjectsList.push_back(new Damage(mario->xPos, mario->yPos, mario->move));
+    }
+
+    if(waiter >= 75){
+        Track::PLAYSTART = false;
+        Track::MENU_MAIN = true;
+    }
+
+
 }
 
 void Game::Render() {
@@ -184,11 +206,13 @@ void Game::Render() {
         for (UILabel *uiLabel: StaticLists::uiLabelsList) {
             uiLabel->Render();
         }
+        restartButton->Render();
     } else if (Track::MENU_MAIN) {
         screen->Render();
         StartButton->Render();
     }
     exitButton->Render();
+
     SDL_RenderPresent(StaticObjects::renderer);
 
 }
@@ -238,6 +262,8 @@ void Game::CheckDoorButtons() {
                     if (CheckCollisions(yarn, animal)) {
                         yarn->alive = false;
                         animal->TakeD();
+                        musicController->playBigCatNoise();
+                        StaticLists::gameObjectsList.push_back(new DisperseBig(animal->xPos, animal->yPos));
                     }
                 }
 
@@ -290,6 +316,9 @@ void Game::KillDead() {
 
 void Game::startGame() {
 
+    StaticLists::gameObjectsList.clear();
+    StaticLists::uiLabelsList.clear();
+
     map = new Map();
 
     StaticLists::uiLabelsList.push_back(new UILabel("Evil Cats Killed: ", 170, 20, 20));
@@ -300,6 +329,15 @@ void Game::startGame() {
     StaticLists::uiLabelsList.push_back(new UILabel("0", 900, 20, 20));
     StaticLists::uiLabelsList.push_back(new UILabel("Time Left: ", 1100, 20, 20));
     StaticLists::uiLabelsList.push_back(new UILabel("0", 1200, 20, 20));
+
+    Track::PLAYSTART = true;
+    Track::EVILCATKILL = 0;
+    Track::PLAYERHEALTH = 1;
+    Track::LEVEL = 0;
+    Track::TIMEREM = 3600;
+    waiter_start = false;
+    waiter = 0;
+
 
     mario = new Mario(24, 120);
 }

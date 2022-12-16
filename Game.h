@@ -28,6 +28,8 @@ public:
 private:
     bool isRunning;
     SDL_Window *window;
+    static bool waiter_start;
+    static int waiter;
 
     static void startGame();
 

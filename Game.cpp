@@ -189,8 +189,6 @@ void Game::Update() {
         Track::PLAYSTART = false;
         Track::MENU_MAIN = true;
     }
-
-
 }
 
 void Game::Render() {
@@ -333,7 +331,7 @@ void Game::startGame() {
 
     Track::PLAYSTART = true;
     Track::EVILCATKILL = 0;
-    Track::PLAYERHEALTH = 1;
+    Track::PLAYERHEALTH = 100;
     Track::LEVEL = 0;
     Track::TIMEREM = 3600;
     waiter_start = false;
